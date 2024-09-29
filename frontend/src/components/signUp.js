@@ -21,7 +21,6 @@ export const SignupModal = ({ isOpen, onClose, onSignUpSuccess }) => {
     };
 
     try {
-      // Call signUpApi and pass the payload
       const response = await signUpApi(payload);
       onSignUpSuccess();
       onClose();  
@@ -72,7 +71,7 @@ export const SignupModal = ({ isOpen, onClose, onSignUpSuccess }) => {
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg focus:outline-none"
+            className="w-full bg-red-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg focus:outline-none"
           >
             Sign Up
           </button>

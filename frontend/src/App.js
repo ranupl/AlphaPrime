@@ -1,22 +1,43 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Import BrowserRouter, Routes, and Route
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import { CardManager } from "./components/cardManager"; // Correct import case
-import { Navbar } from './components/Navbar';
-import { LoginModal } from './components/login'; // Import Login component if necessary
-import { SignupModal } from './components/signUp'; // Import Signup component if necessary
+import { Home } from "./components/home"; 
+import { Navbar } from './components/navbar';
+import { LoginModal } from './components/login'; 
+import { SignupModal } from './components/signUp'; 
 
 function App() {
+  const [token, setToken] = useState(null); 
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem('token');
+    setToken(storedToken); 
+  }, []);
+
   return (
-    <Router> {/* Wrap with BrowserRouter */}
+    <Router>
       <div className="App">
         <Navbar />
-        {/* Define Routes */}
+        
         <Routes>
-          <Route path="/" element={<CardManager />} /> {/* Home route */}
-          <Route path="/login" element={<LoginModal />} /> {/* Login route */}
-          <Route path="/signup" element={<SignupModal />} /> {/* Signup route */}
+          {!token ? (
+            <Route
+              path="*"
+              element={
+                <div className="flex justify-center items-center h-screen">
+                  <p className="text-lg font-semibold">
+                    Please login to access this content.
+                  </p>
+                </div>
+              }
+            />
+          ) : (
+            <>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<LoginModal />} />
+              <Route path="/signup" element={<SignupModal />} />
+            </>
+          )}
         </Routes>
       </div>
     </Router>
@@ -24,4 +45,5 @@ function App() {
 }
 
 export default App;
+
 

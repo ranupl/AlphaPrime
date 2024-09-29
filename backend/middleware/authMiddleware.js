@@ -15,9 +15,8 @@ module.exports.protectUser = asyncHandler(async (req, res, next) => {
       var cert = fs.readFileSync('jwtRS256.pem');  
   
       const decoded = jwt.verify(token, cert, { algorithms: ['RS256']});
-      req.user = await User.findOne({_id:decoded.id, userType:'candidate'});
+      req.user = await User.findOne({_id:decoded.id, userType: 'admin'});
      
-      console.log(req.user, "request user---")
       if (req.user === null) {
         res.status(401);
         throw new Error('Not authorized');

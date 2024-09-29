@@ -9,7 +9,7 @@ const createCard = asyncHandler(async (req, res) => {
 
   const card = new Card({
     uid: req.user._id,
-    companyName: '',
+    companyName: req.user.companyName,
     name,
     about,
     email,

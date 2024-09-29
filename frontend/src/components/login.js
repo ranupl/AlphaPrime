@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { loginApi } from '../api/login';
+import { useNavigate } from 'react-router-dom';
 
 export const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate(); 
 
   if (!isOpen) return null;
 
@@ -14,8 +16,9 @@ export const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
 
     try {
       const response = await loginApi({ email, password });
-      onLoginSuccess();
-      onClose(); 
+      onLoginSuccess(); 
+      onClose();
+      navigate('/');
     } catch (err) {
       console.error('Login failed:', err);
       setError('Login failed. Please check your credentials and try again.');
@@ -56,7 +59,7 @@ export const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg focus:outline-none"
+            className="w-full bg-red-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg focus:outline-none"
           >
             Login
           </button>

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { FaEnvelope, FaPhone, FaWhatsapp, FaGlobe, FaInstagram, FaLinkedin, FaFacebook } from "react-icons/fa"; // Ensure this import is correct
 
-export const Card = () => {
+export const Card = ({card}) => {
   const [profileImage, setProfileImage] = useState(null);
   const [coverImage, setCoverImage] = useState(null);
+  const serverUrl = "http://localhost:7001";
 
   const handleProfileChange = (e) => {
     setProfileImage(URL.createObjectURL(e.target.files[0]));
@@ -18,9 +19,9 @@ export const Card = () => {
       {/* Cover Image */}
       <div className="relative">
         <div className="h-40 w-full bg-gray-200 rounded-t-lg overflow-hidden">
-          {coverImage ? (
+          {card.coverPhotoUrl ? (
             <img
-              src={coverImage}
+            src={`${serverUrl}${card.coverPhotoUrl}`}
               alt="Cover"
               className="object-cover h-full w-full"
             />
@@ -40,9 +41,9 @@ export const Card = () => {
         {/* Profile Image and Company Name */}
         <div className="flex justify-around mt-[-50px]">
           <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white ml-1 ">
-            {profileImage ? (
+            {card.profileUrl ? (
               <img
-                src={profileImage}
+              src={`${serverUrl}${card.profileUrl}`}
                 alt="Profile"
                 className="object-cover h-full w-full"
               />
@@ -60,7 +61,7 @@ export const Card = () => {
           </div>
 
           <div className="mt-3 ml-4 mr-1 w-1200 h-20 bg-black border border-gray-300 rounded-lg p-1 flex items-center justify-center">
-            <h6 className="text-md font-bold text-white text-center">Company Name</h6>
+            <h6 className="text-md font-bold text-white text-center">{card.companyName}</h6>
           </div>
         </div>
       </div>
@@ -69,8 +70,8 @@ export const Card = () => {
       <div className="bg-white shadow-md rounded-b-lg pt-6 px-6 pb-6">
         {/* Contact Info Links */}
         <div>
-          <h2 className="font-bold text-2xl">Zakiya Fareez</h2>
-          <p className="text-lg">Personal Branding Expert<br />TECHLEGENDZ</p>
+          <h2 className="font-bold text-2xl">{card.name}</h2>
+          <p className="text-lg">{card.about}</p>
         </div>
 
         <div className="mt-4 text-center">
@@ -83,7 +84,7 @@ export const Card = () => {
                 href="mailto:zakiyafareez@techlegendzdxb.com"
                 className="text-gray-700 p-1 rounded transition-colors duration-200"
               >
-                zakiyafareez@techlegendzdxb.com
+                {card.email}
               </a>
             </div>
             <div className="flex items-center mb-2 hover:bg-pink-100">
@@ -94,7 +95,7 @@ export const Card = () => {
                 href="tel:+971505012754"
                 className="text-gray-700 p-1 rounded transition-colors duration-200"
               >
-                +971505012754
+                {card.phone}
               </a>
             </div>
             <div className="flex items-center mb-2 hover:bg-pink-100">
@@ -105,7 +106,7 @@ export const Card = () => {
                 href="https://wa.me/971505012754"
                 className="text-gray-700 p-1 rounded transition-colors duration-200"
               >
-                Connect me on WhatsApp
+                {card.whatsappNumber}
               </a>
             </div>
             <div className="flex items-center mb-2 hover:bg-pink-100">
@@ -113,7 +114,7 @@ export const Card = () => {
                 <FaGlobe className="text-white" />
               </span>
               <a
-                href="https://www.techlegendz.com"
+                href={card.websiteLink}
                 className="text-gray-700 p-1 rounded transition-colors duration-200"
               >
                 Visit our Website
@@ -124,7 +125,7 @@ export const Card = () => {
                 <FaInstagram className="text-white" />
               </span>
               <a
-                href="https://www.instagram.com"
+                href={card.instagramUrl}
                 className="text-gray-700 p-1 rounded transition-colors duration-200"
               >
                 Follow me on Instagram
@@ -135,7 +136,7 @@ export const Card = () => {
                 <FaLinkedin className="text-white" />
               </span>
               <a
-                href="https://www.linkedin.com"
+                href={card.linkedinUrl}
                 className="text-gray-700 p-1 rounded transition-colors duration-200"
               >
                 Connect with me on LinkedIn
@@ -146,7 +147,7 @@ export const Card = () => {
                 <FaFacebook className="text-white" />
               </span>
               <a
-                href="https://www.facebook.com"
+                href={card.facebookUrl}
                 className="text-gray-700 p-1 rounded transition-colors duration-200"
               >
                 Connect with me on Facebook
@@ -156,11 +157,11 @@ export const Card = () => {
         </div>
 
         {/* Save Contact Button */}
-        <div className="mt-6 flex justify-center">
+        {/* <div className="mt-6 flex justify-center">
           <button className="bg-red-500 text-white py-2 px-6 rounded-lg">
             Save Contact
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );
